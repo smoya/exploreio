@@ -13,8 +13,10 @@
 package main
 
 import (
-	_ "image/gif" // register gif decoder
-	_ "image/png" // register png decoder
+	"image"
+	_ "image/gif"
+	"image/jpeg"
+	_ "image/png"
 	"io"
 	"log"
 	"os"
@@ -23,7 +25,12 @@ import (
 // toJPG converts gif or PNG to JPG.
 func toJPG(in io.Reader, out io.Writer) error {
 	// TODO: Read the image, encode the image. 5 lines with error handling.
-	return nil
+	img, _, err := image.Decode(in)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return jpeg.Encode(out, img, nil)
 }
 
 func main() {
