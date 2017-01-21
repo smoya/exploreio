@@ -14,6 +14,10 @@ import (
 // Empty is an reader that returns nothing.
 type Empty struct{}
 
+func (e Empty) Read(p []byte) (n int, err error) {
+	return 0, io.EOF
+}
+
 // TODO: Implement the Read interface, always return EOF. 3 lines.
 // ...
 // ...
